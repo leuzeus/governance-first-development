@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use Governance-First Development, cite the version you evaluated."
+type: software
+title: "Governance-First Development"
+abstract: "An experimental repository-centered method for governing software projects developed by humans and AI agents."
+authors:
+  - name: "LeuZeuS"
+version: "0.1-draft"
+date-released: "2026-08-01"
+license: MIT
+repository-code: "https://github.com/leuzeus/governance-first-development"
+url: "https://github.com/leuzeus/governance-first-development"
+keywords:
+  - software governance
+  - AI coding agents
+  - repository governance
+  - decision records
+  - software evidence
