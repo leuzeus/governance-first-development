@@ -1,0 +1,15 @@
+interface:
+  display_name: Auditer la gouvernance projet
+  short_description: Auditer la gouvernance sans bureaucratie
+  default_prompt: Utilise $audit-project-governance pour auditer ce dépôt avec la
+    profondeur minimale suffisante et proposer des corrections proportionnées à son
+    contexte.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
