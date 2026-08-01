@@ -1,6 +1,6 @@
 # Decision 0001: Publish GFD as an experimental MIT-licensed proposal
 
-Status: accepted
+Status: proposed; awaiting release-authority confirmation
 
 Date: 2026-08-01
 
@@ -20,11 +20,13 @@ The project owner confirmed authorship of the skill. No civil name, affiliation,
 
 For licensing, the considered options were a simple permissive license, a reciprocal license, or no public license.
 
-## Decision
+## Proposed decision
 
 Use option 2. Label the repository `0.1-draft` and display the required experimental status in both README files, `STATUS.md`, the future GitHub description, and release notes.
 
 Use the MIT License for original repository content and the project-owner-authored audit skill. Attribute the public identity `LeuZeuS` until the owner chooses a different public author name. Do not invent an affiliation or legal identity.
+
+This proposal takes effect only when the project owner explicitly approves public release under MIT with the stated author identity. Until then, the repository remains a private local draft and this record has no accepted-decision authority.
 
 ## Consequences
 

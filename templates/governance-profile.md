@@ -2,9 +2,9 @@
 
 Change:
 
-Selected profile: EXPLORE | FAST | STANDARD | ASSURED
+Selected path: EXPLORE | FAST | STANDARD | ASSURED | EMERGENCY
 
-Emergency overlay: true | false
+Base profile when `EMERGENCY` is selected: EXPLORE | FAST | STANDARD | ASSURED
 
 ## Risk basis
 

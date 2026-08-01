@@ -10,7 +10,7 @@ Verdict: ready for owner pre-publication review; not authorized for public push 
 
 ## Executive summary
 
-The repository has an explicit authority order, one canonical method, visible maturity limits, claim-specific evidence rules, a concise agent router, and a human publication boundary. No contradiction or missing local authority was found that blocks a pre-publication review.
+The repository has an explicit authority order, one canonical method, visible maturity limits, claim-specific evidence rules, a concise agent router, and a human publication boundary. A later requirement-by-requirement recheck found that two sentences treated the proposed MIT license as already accepted. They were corrected before publication. No remaining contradiction or missing local authority was found that blocks a pre-publication review.
 
 The strict controls around license, skill identity, public status, and publication are justified because those actions affect rights and external state. The largest observed cost is documentary: the pre-release snapshot contained 32 files and 135,474 bytes. Most of that size comes from the user-requested method, research record, and preserved audit skill rather than repeated root instructions. `AGENTS.md` remains 33 lines.
 
@@ -135,6 +135,15 @@ Assessment: strictness is justified. GitHub state is currently `UNAVAILABLE` bec
 - Confidence: high
 - Action: `keep_as_is`
 
+### F-07: draft licensing language exceeded recorded authority
+
+- Category: `agent_reasoning_risk`
+- Evidence: the owner declared authorship of the skill, while the first local draft marked decision 0001 as accepted and said the owner had already selected MIT
+- Protected risk: publishing under an unapproved license or attributing a decision the owner did not make
+- Cost: one provenance correction, one decision-status correction, and a more explicit approval request
+- Confidence: high; the recorded owner message established authorship but did not expressly accept MIT
+- Action: `add_compensating_control`; the correction was applied after the read-only audit, and decision 0001 now remains proposed until approval names the public visibility, MIT license, and `LeuZeuS` author identity
+
 ## Invariants
 
 The audit found explicit sources for truth about commands, the four evidence states, a source-of-truth order, no implicit publication, secret protection, retained history, provenance and permissions, rollback for critical changes, conclusions limited to evidence, and separation between the method and its skill implementation.
@@ -147,7 +156,7 @@ project_context: personal_agent_driven
 authorities_loaded: 7
 controls_examined: 12
 governance_files_implicated: 8
-useful_blocks_observed: 1
+useful_blocks_observed: 2
 false_block_risks: 1
 deferred_evidence:
   - public repository, description, remote, push, tag, and release verification

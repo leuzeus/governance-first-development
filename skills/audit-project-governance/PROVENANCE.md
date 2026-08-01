@@ -10,7 +10,7 @@ This repository copied the active snapshot on 2026-08-01. No private machine pat
 
 ## License
 
-The author confirmed ownership and selected the repository's [MIT License](../../LICENSE) for this copy. No third-party code or separate license notice was present in the four source files. If an earlier contributor or incorporated source is later identified, publication and attribution must be reviewed before the affected content is redistributed.
+The repository draft proposes the [MIT License](../../LICENSE) for this copy. Public release under that license remains subject to the project owner's explicit pre-publication approval. No third-party code or separate license notice was present in the four source files. If an earlier contributor or incorporated source is later identified, publication and attribution must be reviewed before the affected content is redistributed.
 
 ## Snapshot manifest
 
