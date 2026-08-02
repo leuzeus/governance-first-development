@@ -373,6 +373,31 @@ def _semantic_terminal_findings(
         findings.append(
             finding("AOI-PRODUCT-PASS", "critical", path, "product passed without an executed passing product gate", "Use not_executed or inconclusive until the product gate passes.")
         )
+    if verdict == "not_executed" and (
+        target_gate is None
+        or target_executed
+        or not target_result
+        or target_result.get("result") != "not_executed"
+    ):
+        findings.append(
+            finding("AOI-PRODUCT-NOT-EXECUTED", "critical", path, "product verdict is not_executed but target gate evidence says otherwise", "Use not_executed only for a declared target product gate that did not run.")
+        )
+    if verdict == "not_applicable":
+        invalid_not_applicable = target_executed
+        if target_gate is not None:
+            invalid_not_applicable = invalid_not_applicable or not target_result or target_result.get("result") != "not_applicable"
+        if invalid_not_applicable:
+            findings.append(
+                finding("AOI-PRODUCT-NOT-APPLICABLE", "critical", path, "product verdict is not_applicable without matching target gate scope evidence", "Cite the authority and mark the unexecuted target gate not_applicable, or use the observed verdict.")
+            )
+    if verdict == "inconclusive" and (
+        not target_executed
+        or not target_result
+        or target_result.get("result") != "inconclusive"
+    ):
+        findings.append(
+            finding("AOI-PRODUCT-INCONCLUSIVE", "critical", path, "product verdict is inconclusive without an executed inconclusive target gate", "Use inconclusive only when the product gate ran but could not support pass or fail.")
+        )
     if verdict in {"not_executed", "not_applicable", "inconclusive"} and classification == "product_failure":
         findings.append(
             finding("AOI-WRONG-LAYER", "critical", path, f"{verdict} cannot be classified as product_failure", "Use operator_error, orchestration_error, environment_failure, or unclassified from evidence.")

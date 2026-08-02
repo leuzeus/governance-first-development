@@ -51,6 +51,21 @@ class AttemptOutcomeIntegrityTests(unittest.TestCase):
         self.assertEqual("non_conformant", report.verdict)
         self.assertIn("AOI-PRODUCT-BLAME", {item.code for item in report.findings})
 
+    def test_product_verdict_must_match_target_gate_execution_and_result(self) -> None:
+        _, outcome_schema = self._schemas()
+        attempt = self._load(self.examples / "D-environment-failure" / "attempt.json")
+        outcome = self._load(self.examples / "D-environment-failure" / "outcome.json")
+        outcome["product_verdict"] = "not_executed"
+        findings = AOI.validate_outcome(
+            Path("executed-but-not-executed-verdict.json"),
+            outcome,
+            outcome_schema,
+            {attempt["attempt_id"]: attempt},
+            {outcome["event_id"]: outcome},
+            {outcome["event_id"]: Path("executed-but-not-executed-verdict.json")},
+        )
+        self.assertIn("AOI-PRODUCT-NOT-EXECUTED", {item.code for item in findings})
+
     def test_terminal_outcome_requires_progression_fields(self) -> None:
         attempt_schema, outcome_schema = self._schemas()
         attempt = self._load(self.examples / "B-operator-error" / "attempt.json")
