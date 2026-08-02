@@ -6,7 +6,7 @@ Project context: `personal_agent_driven`
 
 Baseline commit: `2c6fe2371fb5cd6ac1eff85bc5a28a33defe4e34`
 
-Audited implementation commit: `164a568`
+Audited implementation commit: `c5187ce`
 
 Audited branch and state: `codex/gfd-attempt-outcome-governance`, clean
 
@@ -28,12 +28,12 @@ This is a self-audit of synthetic contracts. It does not show that the model imp
 
 Facts:
 
-- Git identified commit `164a568` on branch `codex/gfd-attempt-outcome-governance` with a clean tracked worktree.
+- Git identified commit `c5187ce` on branch `codex/gfd-attempt-outcome-governance` with a clean tracked worktree.
 - No Git remote is configured.
 - The baseline contained 34 tracked files, 27 Markdown files, and 152,660 tracked bytes.
-- The audited implementation contains 74 tracked files, 33 Markdown files, and 291,753 tracked bytes: increases of 40 files, 6 Markdown files, and 139,093 bytes.
+- The audited implementation contains 75 tracked files, 34 Markdown files, and 308,607 tracked bytes: increases of 41 files, 7 Markdown files, and 155,947 bytes.
 - The positive corpus contains 9 attempt declarations and 11 outcome events across cases A through H.
-- The test suite contains 11 executed tests.
+- The test suite contains 12 executed tests.
 - The canonical package declares 10 files and version `0.2.0`.
 - The personal installed copy contained 4 files before and after the dry-run comparison; their relative paths and SHA-256 values were unchanged.
 - The repository still states that GFD is an experimental proposal with no completed full-lifecycle reference implementation.
@@ -61,14 +61,14 @@ No public release, push, skill installation, or external-project operation was e
 | Repository validator | `PASS` | 46 required files; internal links, bilingual status, citation, skill manifest, 27 JSON files, attempt examples, private-material scan, and publication-language scan passed |
 | External link network check | `SKIP` | The local validator was run without `--external`; no network availability claim is made |
 | Attempt examples and append-only baseline | `PASS` | Verdict `conformant`; 9 attempts, 11 events; all record changes from the baseline were additions |
-| Python unit tests | `PASS` | 11 of 11 executed tests passed |
+| Python unit tests | `PASS` | 12 of 12 executed tests passed |
 | Official skill structure validator | `PASS` | Reported `Skill is valid!` |
-| Deterministic package | `PASS` | Two builds produced SHA-256 `1E8765A2DFBAEA0D90D136B376E6A2DF4FFBE508B9A3591DF317FB2919AD6C2D` |
+| Deterministic package | `PASS` | Two builds produced SHA-256 `F7CE824922D8A37C8FCA41A43C5D9576E6B79106878714BF4FC7A8557640D463` |
 | Installation comparison | `PASS` | Expected drift was reported with dry-run exit code 1; no target file changed |
 | Independent agent forward-test | `UNAVAILABLE` | No independent agent execution was available in this audit context; deterministic fixtures were used but are not a substitute for independent review |
 | Remote publication and draft PR | `SKIP` | No remote exists and no publication authority was exercised |
 
-The measured local durations for one post-change run were: repository validation 793 ms, attempt validation 410 ms, unit tests 2,160 ms, official skill validation 271 ms, and one package build 150 ms. These are single-machine observations, not performance guarantees or historical baselines.
+The measured local durations for one post-change run were: repository validation 647 ms, attempt validation 386 ms, unit tests 1,988 ms, official skill validation 132 ms, and one package build 145 ms. These are single-machine observations, not performance guarantees or historical baselines.
 
 ## Authority map
 
@@ -151,8 +151,8 @@ audit_profile: DEEP
 project_context: personal_agent_driven
 authorities_loaded: 8
 controls_examined: 11
-governance_files_implicated: 40
-useful_blocks_observed: 9
+governance_files_implicated: 41
+useful_blocks_observed: 10
 false_block_risks: 2
 deferred_evidence:
   - live classification accuracy and agreement
@@ -163,7 +163,7 @@ governance_friction: medium
 evidence_quality: sufficient_for_internal_contract_only
 ```
 
-The 9 useful blocks are distinct negative behaviors asserted by the tests, not production defects found. Friction remains `medium`: the local checks complete in seconds, but the change added 40 tracked files and 139,093 bytes, and no pilot has measured ongoing record maintenance. The two false-block risks are over-promotion of session occurrences and over-broad evidence invalidation; both now have controls, but their field behavior is unknown.
+The 10 useful blocks are distinct negative behaviors asserted by the tests, not production defects found. Friction remains `medium`: the local checks complete in seconds, but the audited snapshot has 41 more tracked files and 155,947 more bytes than the baseline, and no pilot has measured ongoing record maintenance. The two false-block risks are over-promotion of session occurrences and over-broad evidence invalidation; both now have controls, but their field behavior is unknown.
 
 ## Residual findings
 
@@ -190,7 +190,7 @@ The 9 useful blocks are distinct negative behaviors asserted by the tests, not p
 - Category: `insufficient_evidence`
 - Severity: medium
 - Confidence: high
-- Evidence: no independent agent or human report accompanies commit `164a568`
+- Evidence: no independent agent or human report accompanies commit `c5187ce`
 - Recommendation: obtain a review whose shared model, prompts, context, tests, and oracle are disclosed
 - Action: `requires_more_measurement`
 
