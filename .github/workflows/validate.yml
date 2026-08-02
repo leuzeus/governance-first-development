@@ -19,3 +19,7 @@ jobs:
           python-version: "3.12"
       - name: Run repository checks
         run: python -X utf8 scripts/validate_repository.py
+      - name: Validate attempt outcome examples
+        run: python -X utf8 scripts/validate_attempt_governance.py --records examples/attempt-lineage
+      - name: Run executable governance tests
+        run: python -X utf8 -m unittest discover -s tests -v

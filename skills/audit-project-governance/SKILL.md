@@ -1,9 +1,11 @@
 ---
 name: audit-project-governance
-description: Auditer de manière contradictoire et fondée sur les preuves la gouvernance technique, informationnelle, documentaire, agentique et de livraison d’un dépôt, puis proposer des corrections proportionnelles au risque et au contexte du projet. Utiliser ce skill pour examiner AGENTS.md, politiques, ADR, autorités, gates CI, validations, revues, preuves, releases ou workflows d’agents; détecter contradictions temporelles, conflits d’autorité, dette de contexte, biais d’agents et surcharge organisationnelle; mesurer la friction; ou concevoir des voies EXPLORE, FAST, STANDARD, ASSURED et EMERGENCY.
+description: Auditer de manière contradictoire et fondée sur les preuves la gouvernance technique, informationnelle, documentaire, agentique et de livraison d’un dépôt, puis proposer des corrections proportionnelles au risque et au contexte du projet. Utiliser ce skill pour examiner AGENTS.md, politiques, ADR, autorités, gates CI, validations, revues, preuves, tentatives et verdicts produit, releases ou workflows d’agents; détecter contradictions temporelles, conflits d’autorité, dette de contexte, biais d’agents, faux blâme produit et surcharge organisationnelle; mesurer la friction; ou concevoir des voies EXPLORE, FAST, STANDARD, ASSURED et EMERGENCY.
 ---
 
 # Auditer la gouvernance d’un projet
+
+Version du skill : `0.2.0`
 
 ## Respecter le contrat
 
@@ -22,6 +24,7 @@ Toujours :
 - distinguer `PASS`, `FAIL`, `SKIP` et `UNAVAILABLE` ;
 - préserver secrets, compatibilité, provenance, rollback et autorités ;
 - ne jamais traiter l’ancienneté, la complexité ou le coût comme une preuve de valeur ;
+- ne jamais attribuer un échec au produit si aucun gate produit exécuté n’a observé cet échec ;
 - ne jamais appliquer implicitement un modèle d’entreprise à un projet personnel.
 
 ## Calibrer l’audit
@@ -132,6 +135,39 @@ Rechercher avec une preuve concrète :
 
 Ne pas signaler un biais théorique sans mécanisme ou exemple applicable au dépôt.
 
+### 4.1 Auditer les tentatives et verdicts produit
+
+Déclencher cette dimension lorsque le dépôt contient des manifests de tentative,
+gates ordonnés, résultats de pipeline, classifications de panne, corrections,
+retries, preuve invalidée, ou lorsqu’un échec opérationnel est présenté comme un
+échec produit.
+
+Lire alors [references/attempt-outcome-integrity.md](references/attempt-outcome-integrity.md)
+en entier. Si les schémas GFD sont adoptés et disponibles, exécuter le validateur
+en lecture seule :
+
+```text
+python -X utf8 scripts/audit_attempt_outcomes.py --root <repository> --records <record-root>
+```
+
+Sinon appliquer les mêmes règles sémantiques aux formats locaux et déclarer le
+contrôle exécutable `UNAVAILABLE`. Ne pas imposer le schéma GFD à un projet qui ne
+l’a pas adopté.
+
+Séparer obligatoirement :
+
+- statut d’exécution ;
+- résultat et progression des gates ;
+- statut de preuve `PASS|FAIL|SKIP|UNAVAILABLE` ;
+- verdict produit `passed|failed|not_executed|not_applicable|inconclusive` ;
+- classification `product_failure|operator_error|orchestration_error|environment_failure|unclassified`.
+
+Un verdict produit `failed` exige un gate produit exécuté et échoué. Une
+classification rétrospective ajoute un événement référant au résultat préservé ;
+elle ne le réécrit pas. Une correction appliquée reste non validée jusqu’à une
+tentative ultérieure probante. Avant d’invalider une preuve ou d’exiger un rerun,
+vérifier la matérialité du changement et les gates réellement touchés.
+
 ### 5. Mesurer la friction
 
 Rapporter lorsque observable :
@@ -178,6 +214,11 @@ résiduel et signal de non-régression.
 - `STANDARD` : ajouter carte des autorités, inventaire représentatif, parcours
   sélectionnés, métriques de friction et plan incrémental.
 - `DEEP` : utiliser toute la structure de la référence et les six parcours.
+
+Pour la dimension **Attempt Outcome Integrity**, donner exactement un verdict :
+`conformant`, `partially_conformant`, `non_conformant`, `not_applicable` ou
+`not_evaluable`. Ne pas transformer `not_applicable` ou `not_evaluable` en
+réussite implicite.
 
 Terminer par exactement une première étape seulement si l’utilisateur demande
 un plan ou un audit formel. La rendre testable, réversible et non exécutée.

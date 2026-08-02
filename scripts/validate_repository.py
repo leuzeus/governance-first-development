@@ -4,8 +4,9 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
+import json
 import re
+import subprocess
 import sys
 import urllib.error
 import urllib.request
@@ -35,36 +36,36 @@ REQUIRED_FILES = (
     "templates/decision-record.md",
     "templates/evidence-record.md",
     "templates/governance-profile.md",
+    "templates/attempt-record.json",
+    "templates/attempt-outcome.json",
     "examples/personal-agent-driven-project.md",
+    "examples/attempt-lineage/README.md",
     "governance/authority-map.md",
     "governance/decisions/0001-initial-method-and-license.md",
+    "governance/decisions/0002-attempt-outcome-integrity.md",
+    "governance/addenda/0001-attempt-outcome-integrity.md",
     "governance/evidence/initial-validation.md",
     "governance/audits/initial-audit.md",
+    "governance/audits/attempt-outcome-baseline.md",
+    "schemas/attempt-record.schema.json",
+    "schemas/attempt-outcome.schema.json",
+    "scripts/validate_attempt_governance.py",
     "skills/audit-project-governance/SKILL.md",
+    "skills/audit-project-governance/VERSION",
+    "skills/audit-project-governance/PACKAGE_MANIFEST.json",
     "skills/audit-project-governance/agents/openai.yaml",
     "skills/audit-project-governance/assets/icon.svg",
+    "skills/audit-project-governance/scripts/audit_attempt_outcomes.py",
     "skills/audit-project-governance/references/audit-reference.md",
+    "skills/audit-project-governance/references/attempt-outcome-integrity.md",
     "skills/audit-project-governance/PROVENANCE.md",
+    "tools/package_skill.py",
+    "tools/sync_skill.py",
+    "tests/test_attempt_governance.py",
+    "tests/test_skill_distribution.py",
 )
 
-SKILL_MANIFEST = {
-    "skills/audit-project-governance/SKILL.md": (
-        8376,
-        "8A13806DB8E6C4875670098C54A87660554670DC3347D22EA1C1AF88E7F4CBF7",
-    ),
-    "skills/audit-project-governance/agents/openai.yaml": (
-        457,
-        "98F2E007E539263BC1A3B7B3D9F3206583F52235FDC08D8B7E2C6D98BF8BABA6",
-    ),
-    "skills/audit-project-governance/assets/icon.svg": (
-        420,
-        "E9301497FA98EF56AACA7EDE0857B9A18DC06C34040F0679C609A6BF49B1D38B",
-    ),
-    "skills/audit-project-governance/references/audit-reference.md": (
-        14563,
-        "03BC7F1B4338513DD318F912B24B683796512267C30B15E6920EE30AF80C5DF2",
-    ),
-}
+SKILL_DIR = ROOT / "skills" / "audit-project-governance"
 
 EN_STATUS = (
     "Experimental proposal — tested only on ongoing projects; "
@@ -95,7 +96,7 @@ def markdown_files() -> list[Path]:
 
 
 def text_publication_files() -> list[Path]:
-    allowed = {".md", ".cff", ".yml", ".yaml", ".py", ".txt", ""}
+    allowed = {".md", ".cff", ".yml", ".yaml", ".json", ".py", ".txt", ""}
     return sorted(
         path
         for path in ROOT.rglob("*")
@@ -185,21 +186,101 @@ def check_citation() -> Result:
 
 
 def check_skill_manifest() -> Result:
+    manifest_path = SKILL_DIR / "PACKAGE_MANIFEST.json"
     errors: list[str] = []
-    for relative, (expected_size, expected_hash) in SKILL_MANIFEST.items():
-        path = ROOT / relative
-        if not path.is_file():
-            errors.append(f"missing {relative}")
-            continue
-        data = path.read_bytes()
-        actual_hash = hashlib.sha256(data).hexdigest().upper()
-        if len(data) != expected_size:
-            errors.append(f"{relative} size {len(data)} != {expected_size}")
-        if actual_hash != expected_hash:
-            errors.append(f"{relative} SHA-256 mismatch")
+    try:
+        manifest = json.loads(read_text(manifest_path))
+    except (OSError, json.JSONDecodeError) as error:
+        return Result("skill-manifest", "FAIL", str(error))
+    files = manifest.get("files")
+    version = manifest.get("version")
+    if manifest.get("format_version") != 1:
+        errors.append("format_version must be 1")
+    if manifest.get("name") != "audit-project-governance":
+        errors.append("unexpected skill name")
+    if manifest.get("archive_root") != "audit-project-governance":
+        errors.append("unexpected archive root")
+    if not isinstance(files, list) or not files or files != sorted(set(files)):
+        errors.append("files must be a non-empty sorted unique list")
+        files = []
+    for relative in files:
+        relative_path = Path(relative)
+        if relative_path.is_absolute() or ".." in relative_path.parts:
+            errors.append(f"unsafe path {relative}")
+        elif not (SKILL_DIR / relative_path).is_file():
+            errors.append(f"missing package file {relative}")
+    required_package_files = {
+        "PACKAGE_MANIFEST.json",
+        "PROVENANCE.md",
+        "SKILL.md",
+        "VERSION",
+        "references/attempt-outcome-integrity.md",
+        "scripts/audit_attempt_outcomes.py",
+    }
+    if not required_package_files.issubset(set(files)):
+        errors.append("required runtime or provenance file absent from package")
+    try:
+        version_text = read_text(SKILL_DIR / "VERSION").strip()
+        skill_text = read_text(SKILL_DIR / "SKILL.md")
+        provenance_text = read_text(SKILL_DIR / "PROVENANCE.md")
+    except OSError as error:
+        errors.append(str(error))
+    else:
+        if version != version_text:
+            errors.append("manifest and VERSION disagree")
+        if f"Version du skill : `{version}`" not in skill_text:
+            errors.append("SKILL.md version marker disagrees")
+        if f"`{version}`" not in provenance_text:
+            errors.append("PROVENANCE.md lacks current version")
     if errors:
         return Result("skill-manifest", "FAIL", "; ".join(errors))
-    return Result("skill-manifest", "PASS", "four source files match the recorded snapshot")
+    return Result("skill-manifest", "PASS", f"{len(files)} declared files for version {version}")
+
+
+def check_json_contracts() -> Result:
+    roots = [
+        ROOT / "schemas",
+        ROOT / "templates",
+        ROOT / "examples" / "attempt-lineage",
+        ROOT / "tests" / "fixtures" / "attempt-governance",
+    ]
+    paths = [SKILL_DIR / "PACKAGE_MANIFEST.json"]
+    for root in roots:
+        if root.is_dir():
+            paths.extend(sorted(root.rglob("*.json")))
+    errors: list[str] = []
+    for path in paths:
+        try:
+            json.loads(read_text(path))
+        except (OSError, json.JSONDecodeError) as error:
+            errors.append(f"{path.relative_to(ROOT)}: {error}")
+    if errors:
+        return Result("json-contracts", "FAIL", "; ".join(errors))
+    return Result("json-contracts", "PASS", f"{len(paths)} JSON files parse")
+
+
+def check_attempt_examples() -> Result:
+    command = [
+        sys.executable,
+        "-X",
+        "utf8",
+        str(ROOT / "scripts" / "validate_attempt_governance.py"),
+        "--records",
+        str(ROOT / "examples" / "attempt-lineage"),
+    ]
+    completed = subprocess.run(
+        command,
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    output = " ".join(completed.stdout.split())
+    if completed.returncode != 0 or "VERDICT conformant" not in completed.stdout:
+        detail = output or " ".join(completed.stderr.split()) or f"exit {completed.returncode}"
+        return Result("attempt-examples", "FAIL", detail)
+    return Result("attempt-examples", "PASS", "A-H corpus is conformant")
 
 
 def check_private_material() -> Result:
@@ -308,6 +389,8 @@ def main() -> int:
         check_status_language,
         check_citation,
         check_skill_manifest,
+        check_json_contracts,
+        check_attempt_examples,
         check_private_material,
         check_publication_language,
     ]

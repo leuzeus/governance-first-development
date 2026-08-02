@@ -14,6 +14,7 @@ rapport.
 7. [Capsule de tâche proposée](#7-capsule-de-tâche-proposée)
 8. [Structure du rapport](#8-structure-du-rapport)
 9. [Profondeur et contexte](#9-profondeur-et-contexte)
+10. [Intégrité des tentatives et résultats](#10-intégrité-des-tentatives-et-résultats)
 
 ## 1. Inventaire minimal
 
@@ -153,6 +154,10 @@ Qualifier chaque étape : `pertinent`, `excessif`, `manquant`, `différable`,
 - indisponibilité environnementale classée comme échec ;
 - absence de `PASS`, `FAIL`, `SKIP` et `UNAVAILABLE` ;
 - validation lourde répétée au lieu de la frontière d’intégration.
+- échec de préparation, d’orchestration ou d’environnement présenté comme un échec produit ;
+- verdict produit dérivé du statut global du workflow sans preuve que le gate produit a été exécuté ;
+- correction déclarée validée avant une tentative ultérieure ;
+- historique de résultat réécrit au lieu d’un addendum append-only.
 
 ### Gouvernance sans cycle de vie
 
@@ -250,6 +255,8 @@ Vérifier leur existence et leur applicabilité :
 - provenance et permissions ;
 - fallback ou rollback des opérations critiques ;
 - conclusion limitée à la preuve réelle ;
+- aucun échec produit sans gate produit exécuté et échoué ;
+- verdict, classification et correction conservés dans une lignée append-only ;
 - autorités architecturales du projet maintenues séparées.
 
 ## 7. Capsule de tâche proposée
@@ -399,3 +406,15 @@ evidence_quality: sufficient|partial|insufficient
 Les nombres sont des comptes observés, jamais des estimations. Expliquer le
 niveau de friction par les parcours et coûts constatés plutôt que par un seuil
 universel.
+
+## 10. Intégrité des tentatives et résultats
+
+Lorsque cette dimension est applicable, lire
+[attempt-outcome-integrity.md](attempt-outcome-integrity.md), relever la
+progression des gates et produire une section **Attempt Outcome Integrity** avec
+un verdict parmi `conformant`, `partially_conformant`, `non_conformant`,
+`not_applicable` et `not_evaluable`.
+
+Le rapport sépare l’échec opérationnel observé du verdict sur le produit, cite
+le dernier gate réussi et le gate terminal, contrôle la lignée append-only et
+évalue la matérialité avant de recommander une invalidation ou un rerun.

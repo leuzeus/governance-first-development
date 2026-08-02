@@ -1,0 +1,18 @@
+{
+  "format_version": 1,
+  "name": "audit-project-governance",
+  "version": "0.2.0",
+  "archive_root": "audit-project-governance",
+  "files": [
+    "PACKAGE_MANIFEST.json",
+    "PROVENANCE.md",
+    "README.md",
+    "SKILL.md",
+    "VERSION",
+    "agents/openai.yaml",
+    "assets/icon.svg",
+    "references/attempt-outcome-integrity.md",
+    "references/audit-reference.md",
+    "scripts/audit_attempt_outcomes.py"
+  ]
+}

@@ -1,18 +1,40 @@
 # `audit-project-governance`
 
-This directory contains the experimental reference audit skill that preceded the public formulation of GFD. The skill helped shape the method, but [METHOD.md](../../METHOD.md) is the normative GFD `0.1-draft` source.
+This directory contains version `0.2.0` of the experimental reference audit skill that preceded the public formulation of GFD. The skill helped shape the method, but [METHOD.md](../../METHOD.md) is the normative GFD `0.1-draft` source.
 
-The copied `SKILL.md`, `agents/openai.yaml`, `assets/icon.svg`, and `references/audit-reference.md` are preserved byte for byte from the author's active local snapshot on 2026-08-01. See [PROVENANCE.md](PROVENANCE.md) for hashes, licensing, known divergences, and portability notes.
+The original four-file snapshot remains identified by byte size and SHA-256 in [PROVENANCE.md](PROVENANCE.md). Version `0.2.0` is an explicit repository evolution governed by [decision 0002](../../governance/decisions/0002-attempt-outcome-integrity.md); it adds attempt/outcome integrity checks, schemas-aware validation, and deterministic distribution controls without rewriting the historical snapshot record.
+
+## Package
+
+`PACKAGE_MANIFEST.json` defines the portable files. Build the archive from the repository root:
+
+```powershell
+python -X utf8 tools/package_skill.py
+```
+
+The tool writes a deterministic ZIP under `dist/` and reports its SHA-256. Two builds from unchanged bytes must be identical.
 
 ## Install for Codex
 
-Copy this directory to the personal Codex skills directory as `audit-project-governance`, then restart or reload skill discovery. Keep the whole directory so the reference, agent metadata, and icon remain available.
+Compare the canonical version with a personal Codex installation before copying anything:
 
-Do not overwrite an existing installation without first comparing versions and preserving a rollback copy.
+```powershell
+python -X utf8 tools/sync_skill.py --target "$env:USERPROFILE\.codex\skills\audit-project-governance"
+```
+
+Exit code `0` means the declared package files match. Exit code `1` means drift was found and no file was changed. The tool does not remove unrelated target files.
+
+Applying the sync requires both the mutation flag and an exact versioned approval phrase:
+
+```powershell
+python -X utf8 tools/sync_skill.py --target "$env:USERPROFILE\.codex\skills\audit-project-governance" --apply --approve "sync audit-project-governance 0.2.0"
+```
+
+Do not run the apply command without reviewing the reported differences and preserving any local customization that overlaps the declared package files.
 
 ## Invoke
 
-Ask the agent to use `$audit-project-governance` and state the audit question. The skill selects the minimum sufficient `TARGETED`, `STANDARD`, or `DEEP` audit depth. It audits in read-only mode and does not authorize a governance reform.
+Ask the agent to use `$audit-project-governance` and state the audit question. The skill selects the minimum sufficient `TARGETED`, `STANDARD`, or `DEEP` audit depth. It audits in read-only mode and does not authorize a governance reform. When attempts or product verdicts are in scope, it also reports the **Attempt Outcome Integrity** dimension.
 
 ## Other agents
 

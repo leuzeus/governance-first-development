@@ -29,6 +29,8 @@ Every contribution chooses one class:
 
 If classification is uncertain, use the stronger class and explain why.
 
+Before invalidating evidence or requiring a new attempt, record whether the changed input is editorial, observational, normative, or an implementation/material-environment change. Name the affected claim or gate. An editorial change does not force a rerun without a recorded material reason.
+
 ## Evidence contributions
 
 State the claim, project context, environment, method, result, date, provenance, limitations, missing data, confounders, and reproduction conditions. Use `PASS`, `FAIL`, `SKIP`, or `UNAVAILABLE` only for a named check.
@@ -58,8 +60,10 @@ The project owner or delegated method editor must accept the decision before mer
 - Cite direct, stable sources for historical or quantitative claims.
 - Preserve skill provenance and license notices.
 - Run `python -X utf8 scripts/validate_repository.py`.
+- Run `python -X utf8 scripts/validate_attempt_governance.py` when attempt records, outcome events, schemas, examples, or related audit checks change.
+- Run `python -X utf8 -m unittest discover -s tests -v` when executable governance changes.
 - Report unrun checks honestly.
 
 ## Reference skill changes
 
-The vendored skill preserves a historical implementation line that predates public GFD. Do not silently rewrite it to match `METHOD.md`. Describe a material divergence in the skill provenance notes, propose the skill change separately, and identify whether it is a limit, debt, or candidate evolution.
+The canonical repository skill evolves independently from the GFD method version. Do not silently rewrite it to match `METHOD.md`. Describe material evolution in the skill provenance notes, identify its compatibility impact, update its version and deterministic package manifest, and keep installed copies unchanged unless an explicit sync approval is given.
