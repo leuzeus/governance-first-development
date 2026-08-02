@@ -1,0 +1,334 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/leuzeus/governance-first-development/schemas/attempt-outcome.schema.json",
+  "title": "GFD append-only attempt outcome event",
+  "description": "Terminal outcome, retrospective classification, materiality assessment, or correction update appended to an immutable attempt declaration.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_type",
+    "event_id",
+    "attempt_id",
+    "record_kind",
+    "recorded_at",
+    "author",
+    "confidence",
+    "evidence_refs",
+    "supersedes_event_id",
+    "relations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "record_type": {
+      "const": "attempt_outcome_event"
+    },
+    "event_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "attempt_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "record_kind": {
+      "enum": [
+        "terminal_outcome",
+        "classification_addendum",
+        "materiality_assessment",
+        "correction_update"
+      ]
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1
+    },
+    "confidence": {
+      "enum": ["high", "medium", "low", "unknown"]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "supersedes_event_id": {
+      "oneOf": [
+        {"$ref": "#/$defs/identifier"},
+        {"type": "null"}
+      ]
+    },
+    "execution_status": {
+      "enum": ["prepared", "running", "completed", "failed", "cancelled", "superseded"]
+    },
+    "gate_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/gate_result"
+      }
+    },
+    "last_successful_gate": {
+      "oneOf": [
+        {"$ref": "#/$defs/identifier"},
+        {"type": "null"}
+      ]
+    },
+    "terminal_gate": {
+      "oneOf": [
+        {"$ref": "#/$defs/identifier"},
+        {"type": "null"}
+      ]
+    },
+    "product_gate_executed": {
+      "type": "boolean"
+    },
+    "product_verdict": {
+      "enum": ["passed", "failed", "not_executed", "not_applicable", "inconclusive"]
+    },
+    "primary_failure_classification": {
+      "enum": [
+        "product_failure",
+        "operator_error",
+        "orchestration_error",
+        "environment_failure",
+        "unclassified",
+        null
+      ]
+    },
+    "contributing_factors": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "product_failure",
+          "operator_error",
+          "orchestration_error",
+          "environment_failure"
+        ]
+      }
+    },
+    "classification": {
+      "$ref": "#/$defs/classification_addendum"
+    },
+    "materiality": {
+      "$ref": "#/$defs/materiality"
+    },
+    "correction": {
+      "$ref": "#/$defs/correction"
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation"
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,127}$"
+    },
+    "gate_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gate_id",
+        "sequence",
+        "kind",
+        "execution_status",
+        "executed",
+        "result",
+        "proof_status",
+        "evidence_refs"
+      ],
+      "properties": {
+        "gate_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "kind": {
+          "enum": ["preparatory", "product", "evidence", "other"]
+        },
+        "execution_status": {
+          "enum": ["prepared", "running", "completed", "failed", "cancelled", "superseded"]
+        },
+        "executed": {
+          "type": "boolean"
+        },
+        "result": {
+          "enum": ["passed", "failed", "not_executed", "not_applicable", "inconclusive"]
+        },
+        "proof_status": {
+          "enum": ["PASS", "FAIL", "SKIP", "UNAVAILABLE"]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "classification_addendum": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_event_id",
+        "target_record_sha256",
+        "product_verdict",
+        "primary_failure_classification",
+        "contributing_factors",
+        "rationale"
+      ],
+      "properties": {
+        "target_event_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "target_record_sha256": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        "product_verdict": {
+          "enum": ["passed", "failed", "not_executed", "not_applicable", "inconclusive"]
+        },
+        "primary_failure_classification": {
+          "enum": [
+            "product_failure",
+            "operator_error",
+            "orchestration_error",
+            "environment_failure",
+            "unclassified"
+          ]
+        },
+        "contributing_factors": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "product_failure",
+              "operator_error",
+              "orchestration_error",
+              "environment_failure"
+            ]
+          }
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "materiality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "change_class",
+        "changed_input",
+        "affects_evidence",
+        "affected_gate_ids",
+        "requires_new_attempt",
+        "decision_ref",
+        "previous_governance_identity",
+        "new_governance_identity",
+        "rationale"
+      ],
+      "properties": {
+        "change_class": {
+          "enum": ["editorial", "observational", "normative", "implementation_or_material_environment"]
+        },
+        "changed_input": {
+          "type": "string",
+          "minLength": 1
+        },
+        "affects_evidence": {
+          "type": "boolean"
+        },
+        "affected_gate_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "requires_new_attempt": {
+          "type": "boolean"
+        },
+        "decision_ref": {
+          "type": ["string", "null"]
+        },
+        "previous_governance_identity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "new_governance_identity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "correction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["correction_id", "state", "description", "applied_at", "evidence_refs"],
+      "properties": {
+        "correction_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "state": {
+          "enum": ["proposed", "applied_not_validated", "validated", "ineffective"]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applied_at": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "target_id"],
+      "properties": {
+        "type": {
+          "enum": [
+            "retries",
+            "supersedes",
+            "caused_by",
+            "corrects",
+            "validates_correction_for",
+            "invalidated_by"
+          ]
+        },
+        "target_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    }
+  }
+}

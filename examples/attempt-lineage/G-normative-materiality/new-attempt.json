@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt", "attempt_id": "case-G-new-attempt", "created_at": "2026-08-02T13:21:00Z",
+  "purpose": "Re-evaluate the affected product gate under criteria version two.",
+  "actor": {"kind": "automation", "identifier": "synthetic-runner"},
+  "authority_refs": ["decision://synthetic/case-G-criteria-v2"],
+  "governance_identity": {"method": "GFD", "version": "0.1-draft+AOI-1.0.0", "criteria_id": "case-G-criteria-v2", "criteria_sha256": null},
+  "planned_gates": [{"gate_id": "case-G-v2-product", "sequence": 1, "kind": "product", "authority_ref": "case-G-criteria-v2", "description": "Evaluate target behavior under criteria v2."}],
+  "target_product_gate": "case-G-v2-product", "source_occurrence_id": null, "promotion_basis": "declared_attempt",
+  "relations": [{"type": "retries", "target_id": "case-G-old-attempt"}]
+}

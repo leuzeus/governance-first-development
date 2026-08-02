@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt_outcome_event", "event_id": "case-H-correction", "attempt_id": "case-H-attempt",
+  "record_kind": "correction_update", "recorded_at": "2026-08-02T13:40:00Z", "author": "synthetic-operator", "confidence": "high",
+  "evidence_refs": ["evidence://case-H/change-log"], "supersedes_event_id": null,
+  "correction": {
+    "correction_id": "case-H-environment-correction", "state": "applied_not_validated",
+    "description": "The environment setting implicated by the terminal evidence was changed.",
+    "applied_at": "2026-08-02T13:39:00Z", "evidence_refs": ["evidence://case-H/change-log"]
+  },
+  "relations": [{"type": "corrects", "target_id": "case-H-outcome"}]
+}

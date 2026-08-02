@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "attempt_outcome_event",
+  "event_id": "case-A-outcome",
+  "attempt_id": "case-A-attempt",
+  "record_kind": "terminal_outcome",
+  "recorded_at": "2026-08-02T12:01:00Z",
+  "author": "synthetic-runner",
+  "confidence": "high",
+  "evidence_refs": ["evidence://case-A/product-log"],
+  "supersedes_event_id": null,
+  "execution_status": "failed",
+  "gate_results": [
+    {"gate_id": "case-A-prepare", "sequence": 1, "kind": "preparatory", "execution_status": "completed", "executed": true, "result": "passed", "proof_status": "PASS", "evidence_refs": ["evidence://case-A/preparation-log"]},
+    {"gate_id": "case-A-product", "sequence": 2, "kind": "product", "execution_status": "failed", "executed": true, "result": "failed", "proof_status": "FAIL", "evidence_refs": ["evidence://case-A/product-log"]}
+  ],
+  "last_successful_gate": "case-A-prepare",
+  "terminal_gate": "case-A-product",
+  "product_gate_executed": true,
+  "product_verdict": "failed",
+  "primary_failure_classification": "product_failure",
+  "contributing_factors": [],
+  "relations": []
+}

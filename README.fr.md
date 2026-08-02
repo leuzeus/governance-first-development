@@ -47,6 +47,16 @@ GFD sépare cinq éléments souvent confondus :
 
 Cette séparation aide un nouvel humain ou un agent tiers à vérifier le projet sans dépendre d’un historique privé. Elle peut aussi faciliter un audit externe, car les affirmations renvoient vers des autorités et des preuves. La valeur nette de cette approche reste à démontrer.
 
+## Intégrité des tentatives et des résultats
+
+GFD propose maintenant un enregistrement additif pour les évaluations bornées. Il sépare le statut d’exécution, le résultat de gate, le statut de preuve, le verdict produit et la classification de l’échec. La règle centrale est simple :
+
+> Ne jamais attribuer au produit l’échec d’un test qui n’a pas été exécuté.
+
+Un échec de préparation, d’opérateur, d’orchestration ou d’environnement peut empêcher l’exécution du gate produit. Il constitue alors une preuve sur la couche observée, pas un verdict d’échec du produit. Les résultats et classifications ultérieures sont ajoutés sans réécrire l’historique. Une évaluation de matérialité détermine les preuves réellement touchées avant d’imposer une nouvelle tentative.
+
+L’extension est définie dans [METHOD.md](METHOD.md#71-attempt-outcome-integrity), illustrée par [huit cas génériques](examples/attempt-lineage/) et contrôlée par des [schémas JSON](schemas/) ainsi qu’un validateur déterministe. Ces artefacts démontrent leur cohérence interne; ils n’établissent pas encore la valeur de l’extension dans un projet réel.
+
 ## Méthode proposée
 
 GFD demande à un projet de conserver seulement la gouvernance qu’il peut expliquer et maintenir :
@@ -113,6 +123,8 @@ La méthode pourra être révisée ou abandonnée si les études prévues ne mon
 - [METHOD.md](METHOD.md) : méthode canonique `0.1-draft`
 - [STATUS.md](STATUS.md) : maturité, preuves manquantes, risques et questions
 - [ROADMAP.md](ROADMAP.md) : programme de validation
+- [schemas/](schemas/) : contrats exécutables de tentative et de résultat immuable
+- [examples/attempt-lineage/](examples/attempt-lineage/) : cas génériques A à H
 - [references/prior-art.md](references/prior-art.md) : sources et comparaison
 - [skills/audit-project-governance/](skills/audit-project-governance/) : implémentation expérimentale d’audit
 - [CONTRIBUTING.md](CONTRIBUTING.md) : corrections, critiques, cas, mesures et changements normatifs

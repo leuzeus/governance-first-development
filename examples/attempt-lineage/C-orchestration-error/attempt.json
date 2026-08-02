@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt", "attempt_id": "case-C-attempt", "created_at": "2026-08-02T12:20:00Z",
+  "purpose": "Evaluate the product through a reusable orchestration layer.",
+  "actor": {"kind": "agent", "identifier": "synthetic-agent"},
+  "authority_refs": ["examples/attempt-lineage/README.md#case-c"],
+  "governance_identity": {"method": "GFD", "version": "0.1-draft+AOI-1.0.0", "criteria_id": "case-C-criteria", "criteria_sha256": null},
+  "planned_gates": [
+    {"gate_id": "case-C-orchestrate", "sequence": 1, "kind": "preparatory", "authority_ref": "case-C-criteria", "description": "Start the reusable test harness."},
+    {"gate_id": "case-C-product", "sequence": 2, "kind": "product", "authority_ref": "case-C-criteria", "description": "Evaluate target behavior."}
+  ],
+  "target_product_gate": "case-C-product", "source_occurrence_id": null, "promotion_basis": "declared_attempt", "relations": []
+}

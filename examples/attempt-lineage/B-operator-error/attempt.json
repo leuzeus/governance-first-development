@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt", "attempt_id": "case-B-attempt", "created_at": "2026-08-02T12:10:00Z",
+  "purpose": "Evaluate the product after an operator supplies the required input.",
+  "actor": {"kind": "human", "identifier": "synthetic-operator"},
+  "authority_refs": ["examples/attempt-lineage/README.md#case-b"],
+  "governance_identity": {"method": "GFD", "version": "0.1-draft+AOI-1.0.0", "criteria_id": "case-B-criteria", "criteria_sha256": null},
+  "planned_gates": [
+    {"gate_id": "case-B-input", "sequence": 1, "kind": "preparatory", "authority_ref": "case-B-criteria", "description": "Supply the required input."},
+    {"gate_id": "case-B-product", "sequence": 2, "kind": "product", "authority_ref": "case-B-criteria", "description": "Evaluate target behavior."}
+  ],
+  "target_product_gate": "case-B-product", "source_occurrence_id": null, "promotion_basis": "declared_attempt", "relations": []
+}

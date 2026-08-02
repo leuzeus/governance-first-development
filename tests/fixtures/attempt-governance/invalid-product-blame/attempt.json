@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "attempt",
+  "attempt_id": "invalid-blame-attempt",
+  "created_at": "2026-08-02T14:00:00Z",
+  "purpose": "Synthetic negative fixture for a product gate that never runs.",
+  "actor": {"kind": "automation", "identifier": "fixture-runner"},
+  "authority_refs": ["tests/test_attempt_governance.py"],
+  "governance_identity": {"method": "GFD", "version": "fixture", "criteria_id": "invalid-blame-criteria", "criteria_sha256": null},
+  "planned_gates": [
+    {"gate_id": "invalid-preparation", "sequence": 1, "kind": "preparatory", "authority_ref": "invalid-blame-criteria", "description": "Prepare the product gate."},
+    {"gate_id": "invalid-product", "sequence": 2, "kind": "product", "authority_ref": "invalid-blame-criteria", "description": "Evaluate the product."}
+  ],
+  "target_product_gate": "invalid-product",
+  "source_occurrence_id": null,
+  "promotion_basis": "declared_attempt",
+  "relations": []
+}

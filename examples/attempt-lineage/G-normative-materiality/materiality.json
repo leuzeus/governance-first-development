@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt_outcome_event", "event_id": "case-G-materiality", "attempt_id": "case-G-old-attempt",
+  "record_kind": "materiality_assessment", "recorded_at": "2026-08-02T13:20:00Z", "author": "synthetic-authority", "confidence": "high",
+  "evidence_refs": ["decision://synthetic/case-G-criteria-v2"], "supersedes_event_id": null,
+  "materiality": {
+    "change_class": "normative", "changed_input": "The product acceptance threshold changed from criteria v1 to criteria v2.",
+    "affects_evidence": true, "affected_gate_ids": ["case-G-product"], "requires_new_attempt": true,
+    "decision_ref": "decision://synthetic/case-G-criteria-v2", "previous_governance_identity": "case-G-criteria-v1", "new_governance_identity": "case-G-criteria-v2",
+    "rationale": "The old proof evaluates a different acceptance threshold and cannot support the new claim."
+  },
+  "relations": [{"type": "invalidated_by", "target_id": "case-G-criteria-v2"}]
+}

@@ -47,6 +47,16 @@ GFD responds by separating five things that are often blurred together:
 
 This separation helps a new human or a third-party agent check the project without relying on private chat history. It can also make an external audit easier because claims point to authorities and evidence instead of summaries alone. Whether it improves outcomes enough to justify its cost remains an experimental question.
 
+## Attempt outcome integrity
+
+GFD now proposes an additive attempt record for bounded evaluations. It separates execution status, gate result, proof status, product verdict, and failure classification. The core rule is simple:
+
+> Never blame the product for a test that never ran.
+
+A preparation, operator, orchestration, or environment failure may prevent a product gate from running. That is evidence about the observed layer, not a failed product verdict. Outcomes and later classifications are append-only, and a materiality assessment identifies which evidence is actually affected before a rerun is required.
+
+The extension is specified in [METHOD.md](METHOD.md#71-attempt-outcome-integrity), illustrated by [eight generic cases](examples/attempt-lineage/), and enforced by [JSON schemas](schemas/) plus a deterministic validator. These artifacts demonstrate internal consistency; they do not establish the extension’s value in a real project.
+
 ## The proposed method
 
 GFD asks a project to keep only the governance it can explain and maintain:
@@ -113,6 +123,8 @@ The method may be revised or abandoned if the planned studies do not show enough
 - [METHOD.md](METHOD.md): canonical `0.1-draft` method
 - [STATUS.md](STATUS.md): maturity, evidence gaps, risks, and open questions
 - [ROADMAP.md](ROADMAP.md): validation program
+- [schemas/](schemas/): executable attempt and append-only outcome contracts
+- [examples/attempt-lineage/](examples/attempt-lineage/): generic cases A–H
 - [references/prior-art.md](references/prior-art.md): sources and comparison
 - [skills/audit-project-governance/](skills/audit-project-governance/): experimental reference audit implementation
 - [CONTRIBUTING.md](CONTRIBUTING.md): corrections, criticism, cases, measurements, and normative changes

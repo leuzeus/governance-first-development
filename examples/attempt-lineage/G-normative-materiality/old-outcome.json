@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt_outcome_event", "event_id": "case-G-old-outcome", "attempt_id": "case-G-old-attempt",
+  "record_kind": "terminal_outcome", "recorded_at": "2026-08-02T13:11:00Z", "author": "synthetic-runner", "confidence": "high",
+  "evidence_refs": ["evidence://case-G/v1-product-log"], "supersedes_event_id": null, "execution_status": "completed",
+  "gate_results": [{"gate_id": "case-G-product", "sequence": 1, "kind": "product", "execution_status": "completed", "executed": true, "result": "passed", "proof_status": "PASS", "evidence_refs": ["evidence://case-G/v1-product-log"]}],
+  "last_successful_gate": "case-G-product", "terminal_gate": "case-G-product", "product_gate_executed": true, "product_verdict": "passed",
+  "primary_failure_classification": null, "contributing_factors": [], "relations": []
+}

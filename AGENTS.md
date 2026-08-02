@@ -14,6 +14,8 @@ Run from the repository root:
 
 ```powershell
 python -X utf8 scripts/validate_repository.py
+python -X utf8 scripts/validate_attempt_governance.py
+python -X utf8 -m unittest discover -s tests -v
 ```
 
 Report each check as `PASS`, `FAIL`, `SKIP`, or `UNAVAILABLE`. Never claim that an unrun or unavailable check passed.
@@ -27,6 +29,7 @@ Report each check as `PASS`, `FAIL`, `SKIP`, or `UNAVAILABLE`. Never claim that 
 - Do not publish, push, release, change visibility, alter licensing, or revise authorship without the required human decision.
 - Keep `README.md` and `README.fr.md` aligned when their meaning changes.
 - Treat changes to `METHOD.md`, `MANIFESTO.md`, authority, precedence, profiles, evidence semantics, license, skill provenance, or public status as `STANDARD` or `ASSURED`, never as an editorial shortcut.
+- Never attribute a product failure unless an executed product gate recorded a failed result. Preserve attempt and outcome history through append-only records.
 
 ## Proposing method changes
 

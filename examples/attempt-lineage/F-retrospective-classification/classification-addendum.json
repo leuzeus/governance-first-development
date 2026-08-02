@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt_outcome_event", "event_id": "case-F-classification", "attempt_id": "case-F-attempt",
+  "record_kind": "classification_addendum", "recorded_at": "2026-08-02T13:00:00Z", "author": "synthetic-reviewer", "confidence": "high",
+  "evidence_refs": ["evidence://case-F/operator-review"], "supersedes_event_id": "case-F-original",
+  "classification": {
+    "target_event_id": "case-F-original",
+    "target_record_sha256": "A2C0B1448C89AED212FFC7C6771A87CA0482A362E2B4EC890E73608390F97891",
+    "product_verdict": "not_executed",
+    "primary_failure_classification": "operator_error",
+    "contributing_factors": [],
+    "rationale": "The preserved input log shows that the supplied lookup key was malformed; the product gate never ran."
+  },
+  "relations": [{"type": "supersedes", "target_id": "case-F-original"}]
+}

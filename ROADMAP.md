@@ -30,6 +30,17 @@ Each governance change receives a dated log entry with:
 - rollback and review date;
 - observed outcome.
 
+For attempt outcome integrity pilots, also record:
+
+- declared attempt and target product gate;
+- last successful and terminal gate;
+- product-gate execution and product verdict;
+- initial and retrospective failure classification;
+- correction state and the later attempt, if any, that validates it;
+- materiality decision, affected proof, and rerun choice;
+- time spent recording, classifying, reconstructing, and rerunning;
+- session occurrences intentionally not promoted to attempts.
+
 ## Phase 2: run bounded comparisons
 
 Where safe and affordable, compare periods, tasks, or matched projects with different governance treatments. Candidate experiments include:
@@ -102,6 +113,11 @@ Every metric record includes: definition, collection method, period, provenance,
 | Evidence coverage | Accepted claims with evidence records divided by accepted claims sampled | Audit sample with explicit denominator | Per release | Release claims and evidence index | Claim selection can bias the ratio |
 | Agent task outcome | Result against predeclared acceptance criteria | Gold test, human rubric, or material observation | Per task and experiment | Test output and review record | Benchmark validity, model drift, task difficulty |
 | Maintenance burden | Time and edits required to keep governance artifacts current | Git diff classification and timer | Monthly or milestone | Git history and maintainer log | Mixed editorial and normative changes |
+| False product blame | Outcome records assigning product failure without an executed failed product gate | Schema and semantic validator plus sampled source evidence | Per attempt, summarized per pilot | Immutable attempt and outcome events | Honest recording still requires review |
+| Classification latency | Time from terminal outcome to supported primary classification | Event timestamps with a stated clock source | Per classified failure | Append-only outcome lineage | Queuing and reviewer availability |
+| Retrospective classification cost | Work needed to classify a preserved historical outcome | Timer and changed-file count | Per addendum | Review log and Git diff | Reviewer familiarity and evidence quality |
+| Rerun avoided or required | Materiality decisions retaining or invalidating named proof | Decision sample with affected gates and subsequent attempts | Per change | Materiality event and attempt lineage | Avoided work is not a benefit unless the retained proof remains valid |
+| Attempt promotion rate | Session occurrences promoted to governed attempts | Declared occurrences and promotion bases within a predeclared sample | Per task sample | Session log and attempt records | Hidden tool actions and inconsistent occurrence boundaries |
 
 ## Audit independence record
 

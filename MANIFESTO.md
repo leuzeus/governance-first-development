@@ -17,3 +17,4 @@ This is an initial proposal. Its principles may change when evidence, counterexa
 13. Evidence supports named claims and no more.
 14. Documentary evidence does not replace material evidence when the claim requires it.
 15. Governance can change without erasing its history.
+16. A product is never blamed for a test that did not run.

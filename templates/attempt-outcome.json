@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "attempt_outcome_event",
+  "event_id": "outcome-20260802-001",
+  "attempt_id": "attempt-20260802-001",
+  "record_kind": "terminal_outcome",
+  "recorded_at": "2026-08-02T12:30:00Z",
+  "author": "replace-with-recorder-id",
+  "confidence": "high",
+  "evidence_refs": [
+    "replace-with-retained-evidence"
+  ],
+  "supersedes_event_id": null,
+  "execution_status": "completed",
+  "gate_results": [
+    {
+      "gate_id": "preflight",
+      "sequence": 1,
+      "kind": "preparatory",
+      "execution_status": "completed",
+      "executed": true,
+      "result": "passed",
+      "proof_status": "PASS",
+      "evidence_refs": [
+        "replace-with-preflight-evidence"
+      ]
+    },
+    {
+      "gate_id": "product-gate",
+      "sequence": 2,
+      "kind": "product",
+      "execution_status": "completed",
+      "executed": true,
+      "result": "passed",
+      "proof_status": "PASS",
+      "evidence_refs": [
+        "replace-with-product-evidence"
+      ]
+    }
+  ],
+  "last_successful_gate": "product-gate",
+  "terminal_gate": "product-gate",
+  "product_gate_executed": true,
+  "product_verdict": "passed",
+  "primary_failure_classification": null,
+  "contributing_factors": [],
+  "relations": []
+}

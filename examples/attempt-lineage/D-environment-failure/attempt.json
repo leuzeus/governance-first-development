@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt", "attempt_id": "case-D-attempt", "created_at": "2026-08-02T12:30:00Z",
+  "purpose": "Evaluate product behavior in the declared execution environment.",
+  "actor": {"kind": "automation", "identifier": "synthetic-runner"},
+  "authority_refs": ["examples/attempt-lineage/README.md#case-d"],
+  "governance_identity": {"method": "GFD", "version": "0.1-draft+AOI-1.0.0", "criteria_id": "case-D-criteria", "criteria_sha256": null},
+  "planned_gates": [{"gate_id": "case-D-product", "sequence": 1, "kind": "product", "authority_ref": "case-D-criteria", "description": "Evaluate target behavior."}],
+  "target_product_gate": "case-D-product", "source_occurrence_id": null, "promotion_basis": "declared_attempt", "relations": []
+}

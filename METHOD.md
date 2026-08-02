@@ -152,6 +152,43 @@ A document can prove that a decision was recorded. It cannot prove GPU behavior,
 
 An AI-generated summary is not independent evidence. A review by another agent may reduce some shared reasoning errors, but model family, prompts, shared context, and common tests can preserve the same bias. Independence MUST be described, not assumed.
 
+### 7.1 Attempt outcome integrity
+
+An attempt is a bounded execution intentionally started to produce evidence, a product result, or a gate verdict. A failed read, lookup, path resolution, or ad hoc command is only a session occurrence unless it belongs to a declared attempt or an authority promotes it because of material impact, recurrence, or causal significance.
+
+The following values describe different things and MUST remain separate:
+
+- execution status: what happened to the attempt or gate process;
+- gate result: what a named gate observed;
+- proof status: whether the recorded evidence supports the gate claim;
+- product verdict: what an executed product-evaluating gate established about the product;
+- failure classification: the layer to which available evidence attributes the failure.
+
+The governing invariant is:
+
+> Never blame the product for a test that never ran.
+
+In French:
+
+> Ne jamais attribuer au produit l’échec d’un test qui n’a pas été exécuté.
+
+`product_verdict = failed` MUST reference an executed product gate whose gate result is `failed`. A preparation, operator, orchestration, environment, permission, or infrastructure failure that prevents that gate from running produces `not_executed`, not a product failure. When the product gate ran but its observation cannot support either acceptance or rejection, the product verdict is `inconclusive`.
+
+An attempt declaration identifies its purpose, actor, authority, governance identity, ordered gates, and target product gate before the bounded evaluation. Its terminal outcome records the last successful gate, terminal gate, execution state, gate results, product-gate execution, product verdict, evidence, confidence, and failure classification. Primary failure classification is `product_failure`, `operator_error`, `orchestration_error`, `environment_failure`, or temporarily `unclassified`.
+
+Attempt declarations and outcome events are immutable. Later classification, correction, materiality, retry, supersession, invalidation, and validation facts are appended as new events with stable identifiers and causal relations. A retrospective classification cites the exact preserved record and its content hash; it does not rewrite the original result or claim that a new test ran.
+
+A correction is not validated merely because it was applied. A later attempt must supply the relevant evidence and link the validation to the correction. Until then, its state remains `applied_not_validated`.
+
+Before invalidating proof or requiring expensive work, the project records a materiality assessment:
+
+- editorial changes do not affect evidence unless an authority records a specific material effect;
+- observational changes add evidence without changing the acceptance contract;
+- normative changes identify the changed authority, affected gates, invalidated evidence, and required new attempt;
+- implementation or materially different environment changes identify the affected claims and gates instead of invalidating unrelated proof.
+
+The executable contracts are [the attempt schema](schemas/attempt-record.schema.json) and [the outcome-event schema](schemas/attempt-outcome.schema.json). Their adoption and compatibility boundary are defined by [normative addendum 0001](governance/addenda/0001-attempt-outcome-integrity.md) and [decision 0002](governance/decisions/0002-attempt-outcome-integrity.md).
+
 ## 8. Time and lifecycle
 
 Every normative artifact declares enough status to distinguish current rules from history, proposals, and projections. The repository SHOULD make these states easy to find:
@@ -163,7 +200,7 @@ Every normative artifact declares enough status to distinguish current rules fro
 - generated projection;
 - expired or pending review.
 
-A document does not become authoritative through recency alone. A decision does not disappear when superseded. Evidence expires when its claim, relevant code, environment, method, or validity period changes.
+A document does not become authoritative through recency alone. A decision does not disappear when superseded. Evidence expires when its validity period ends or when a recorded materiality assessment identifies a changed claim, relevant code, environment, method, or acceptance rule that affects the evidence.
 
 Projects SHOULD detect drift between code and documentation at the narrowest useful boundary. Generated views identify their source and must not be edited as separate truth.
 

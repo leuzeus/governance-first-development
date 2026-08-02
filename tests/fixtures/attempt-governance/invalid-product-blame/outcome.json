@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "attempt_outcome_event",
+  "event_id": "invalid-blame-outcome",
+  "attempt_id": "invalid-blame-attempt",
+  "record_kind": "terminal_outcome",
+  "recorded_at": "2026-08-02T14:01:00Z",
+  "author": "fixture-runner",
+  "confidence": "high",
+  "evidence_refs": ["evidence://fixture/preparation-error"],
+  "supersedes_event_id": null,
+  "execution_status": "failed",
+  "gate_results": [
+    {"gate_id": "invalid-preparation", "sequence": 1, "kind": "preparatory", "execution_status": "failed", "executed": true, "result": "failed", "proof_status": "FAIL", "evidence_refs": ["evidence://fixture/preparation-error"]},
+    {"gate_id": "invalid-product", "sequence": 2, "kind": "product", "execution_status": "prepared", "executed": false, "result": "not_executed", "proof_status": "UNAVAILABLE", "evidence_refs": []}
+  ],
+  "last_successful_gate": null,
+  "terminal_gate": "invalid-preparation",
+  "product_gate_executed": false,
+  "product_verdict": "failed",
+  "primary_failure_classification": "product_failure",
+  "contributing_factors": [],
+  "relations": []
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt_outcome_event", "event_id": "case-D-outcome", "attempt_id": "case-D-attempt",
+  "record_kind": "terminal_outcome", "recorded_at": "2026-08-02T12:31:00Z", "author": "synthetic-runner", "confidence": "high",
+  "evidence_refs": ["evidence://case-D/environment-log"], "supersedes_event_id": null, "execution_status": "failed",
+  "gate_results": [{"gate_id": "case-D-product", "sequence": 1, "kind": "product", "execution_status": "failed", "executed": true, "result": "inconclusive", "proof_status": "UNAVAILABLE", "evidence_refs": ["evidence://case-D/environment-log"]}],
+  "last_successful_gate": null, "terminal_gate": "case-D-product", "product_gate_executed": true, "product_verdict": "inconclusive",
+  "primary_failure_classification": "environment_failure", "contributing_factors": [], "relations": []
+}

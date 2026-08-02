@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt", "attempt_id": "case-E-attempt", "created_at": "2026-08-02T12:40:00Z",
+  "purpose": "Assess whether the product gate applies to this declared scope.",
+  "actor": {"kind": "human", "identifier": "synthetic-authority"},
+  "authority_refs": ["examples/attempt-lineage/README.md#case-e"],
+  "governance_identity": {"method": "GFD", "version": "0.1-draft+AOI-1.0.0", "criteria_id": "case-E-criteria", "criteria_sha256": null},
+  "planned_gates": [{"gate_id": "case-E-product", "sequence": 1, "kind": "product", "authority_ref": "synthetic-authority:scope-decision", "description": "Evaluate target behavior when applicable."}],
+  "target_product_gate": "case-E-product", "source_occurrence_id": null, "promotion_basis": "declared_attempt", "relations": []
+}

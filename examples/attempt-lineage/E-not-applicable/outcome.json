@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt_outcome_event", "event_id": "case-E-outcome", "attempt_id": "case-E-attempt",
+  "record_kind": "terminal_outcome", "recorded_at": "2026-08-02T12:41:00Z", "author": "synthetic-authority", "confidence": "high",
+  "evidence_refs": ["authority://synthetic/scope-decision"], "supersedes_event_id": null, "execution_status": "cancelled",
+  "gate_results": [{"gate_id": "case-E-product", "sequence": 1, "kind": "product", "execution_status": "cancelled", "executed": false, "result": "not_applicable", "proof_status": "SKIP", "evidence_refs": ["authority://synthetic/scope-decision"]}],
+  "last_successful_gate": null, "terminal_gate": "case-E-product", "product_gate_executed": false, "product_verdict": "not_applicable",
+  "primary_failure_classification": null, "contributing_factors": [], "relations": []
+}

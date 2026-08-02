@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0", "record_type": "attempt", "attempt_id": "case-F-attempt", "created_at": "2026-08-02T12:50:00Z",
+  "purpose": "Evaluate the product after an input lookup.",
+  "actor": {"kind": "agent", "identifier": "synthetic-agent"},
+  "authority_refs": ["examples/attempt-lineage/README.md#case-f"],
+  "governance_identity": {"method": "GFD", "version": "0.1-draft+AOI-1.0.0", "criteria_id": "case-F-criteria", "criteria_sha256": null},
+  "planned_gates": [
+    {"gate_id": "case-F-input", "sequence": 1, "kind": "preparatory", "authority_ref": "case-F-criteria", "description": "Resolve the requested input."},
+    {"gate_id": "case-F-product", "sequence": 2, "kind": "product", "authority_ref": "case-F-criteria", "description": "Evaluate target behavior."}
+  ],
+  "target_product_gate": "case-F-product", "source_occurrence_id": null, "promotion_basis": "declared_attempt", "relations": []
+}
