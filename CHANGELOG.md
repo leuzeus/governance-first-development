@@ -4,6 +4,7 @@ This project follows draft versions rather than claiming stable semantic compati
 
 ## Unreleased
 
+- Add a redacting publication privacy scrub for personal data, machine structure, Git history, public identities, and binary metadata.
 - Add the attempt outcome integrity extension while retaining GFD `0.1-draft` experimental status.
 - Separate execution status, gate result, proof status, product verdict, and failure classification.
 - Add append-only attempt and outcome schemas, materiality rules, causal lineage, and generic cases A–H.

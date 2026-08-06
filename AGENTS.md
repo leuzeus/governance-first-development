@@ -20,6 +20,14 @@ python -X utf8 -m unittest discover -s tests -v
 
 Report each check as `PASS`, `FAIL`, `SKIP`, or `UNAVAILABLE`. Never claim that an unrun or unavailable check passed.
 
+Before any first public push, release, or publication-oriented history rewrite, also run:
+
+```powershell
+python -X utf8 scripts/audit_publication_privacy.py --history
+```
+
+`FAIL` or `UNAVAILABLE` blocks publication. Automated `PASS` does not replace the manual identity, filename, commit-message, contextual-data, and binary-metadata review in [privacy addendum 0002](governance/addenda/0002-publication-privacy-scrub.md). Never copy a matched private value into an issue, commit message, audit report, or chat summary.
+
 ## Agent limits
 
 - Separate observed facts, inferences, hypotheses, and proposals.
@@ -30,6 +38,7 @@ Report each check as `PASS`, `FAIL`, `SKIP`, or `UNAVAILABLE`. Never claim that 
 - Keep `README.md` and `README.fr.md` aligned when their meaning changes.
 - Treat changes to `METHOD.md`, `MANIFESTO.md`, authority, precedence, profiles, evidence semantics, license, skill provenance, or public status as `STANDARD` or `ASSURED`, never as an editorial shortcut.
 - Never attribute a product failure unless an executed product gate recorded a failed result. Preserve attempt and outcome history through append-only records.
+- Treat personal information, secrets, local paths, host and network topology, device identifiers, and unreviewed binary metadata as publication blockers unless the release authority explicitly approved the public value.
 
 ## Proposing method changes
 

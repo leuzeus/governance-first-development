@@ -1,0 +1,11 @@
+{
+  "format_version": 1,
+  "approved_git_identities": [
+    {
+      "name": "LeuZeuS",
+      "email_regex": "^[0-9]+\\+LeuZeuS@users\\.noreply\\.github\\.com$",
+      "reason": "Public project identity using GitHub's noreply address"
+    }
+  ],
+  "approved_binary_blobs": []
+}

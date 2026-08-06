@@ -62,7 +62,10 @@ The project owner or delegated method editor must accept the decision before mer
 - Run `python -X utf8 scripts/validate_repository.py`.
 - Run `python -X utf8 scripts/validate_attempt_governance.py` when attempt records, outcome events, schemas, examples, or related audit checks change.
 - Run `python -X utf8 -m unittest discover -s tests -v` when executable governance changes.
+- Before a first public push, release, or history rewrite, run `python -X utf8 scripts/audit_publication_privacy.py --history` and complete the manual review in addendum 0002.
 - Report unrun checks honestly.
+
+Privacy findings stay private. Report the category, affected repository location, and remediation status without copying the matched identifier, path, secret, or metadata value into public review text.
 
 ## Reference skill changes
 

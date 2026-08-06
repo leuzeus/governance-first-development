@@ -10,6 +10,7 @@ Before the first public release:
 
 - record the repository commit, authority map, method version, and initial audit;
 - validate internal links, source metadata, translations, citation metadata, licence, and vendored-skill provenance;
+- run the redacting current-surface and full-history privacy scans, then review intended public identities, filenames, contextual personal data, and binary metadata;
 - record unresolved findings in [STATUS.md](STATUS.md);
 - publish no performance or quality claim that lacks a recorded method.
 

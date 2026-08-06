@@ -43,13 +43,17 @@ REQUIRED_FILES = (
     "governance/authority-map.md",
     "governance/decisions/0001-initial-method-and-license.md",
     "governance/decisions/0002-attempt-outcome-integrity.md",
+    "governance/decisions/0003-publication-privacy-scrub.md",
     "governance/addenda/0001-attempt-outcome-integrity.md",
+    "governance/addenda/0002-publication-privacy-scrub.md",
+    "governance/publication-privacy-policy.json",
     "governance/evidence/initial-validation.md",
     "governance/audits/initial-audit.md",
     "governance/audits/attempt-outcome-baseline.md",
     "schemas/attempt-record.schema.json",
     "schemas/attempt-outcome.schema.json",
     "scripts/validate_attempt_governance.py",
+    "scripts/audit_publication_privacy.py",
     "skills/audit-project-governance/SKILL.md",
     "skills/audit-project-governance/VERSION",
     "skills/audit-project-governance/PACKAGE_MANIFEST.json",
@@ -63,6 +67,7 @@ REQUIRED_FILES = (
     "tools/sync_skill.py",
     "tests/test_attempt_governance.py",
     "tests/test_skill_distribution.py",
+    "tests/test_publication_privacy.py",
 )
 
 SKILL_DIR = ROOT / "skills" / "audit-project-governance"
@@ -92,18 +97,6 @@ def markdown_files() -> list[Path]:
         path
         for path in ROOT.rglob("*.md")
         if ".git" not in path.parts and "__pycache__" not in path.parts
-    )
-
-
-def text_publication_files() -> list[Path]:
-    allowed = {".md", ".cff", ".yml", ".yaml", ".json", ".py", ".txt", ""}
-    return sorted(
-        path
-        for path in ROOT.rglob("*")
-        if path.is_file()
-        and ".git" not in path.parts
-        and "__pycache__" not in path.parts
-        and path.suffix.lower() in allowed
     )
 
 
@@ -244,7 +237,10 @@ def check_json_contracts() -> Result:
         ROOT / "examples" / "attempt-lineage",
         ROOT / "tests" / "fixtures" / "attempt-governance",
     ]
-    paths = [SKILL_DIR / "PACKAGE_MANIFEST.json"]
+    paths = [
+        SKILL_DIR / "PACKAGE_MANIFEST.json",
+        ROOT / "governance" / "publication-privacy-policy.json",
+    ]
     for root in roots:
         if root.is_dir():
             paths.extend(sorted(root.rglob("*.json")))
@@ -283,26 +279,31 @@ def check_attempt_examples() -> Result:
     return Result("attempt-examples", "PASS", "A-H corpus is conformant")
 
 
-def check_private_material() -> Result:
-    patterns = {
-        "Windows user path": re.compile(r"[A-Za-z]:\\Users\\[^\\\s]+", re.I),
-        "workspace drive path": re.compile(r"\bG:\\", re.I),
-        "GitHub token": re.compile(r"\bgh[opurs]_[A-Za-z0-9_]{16,}"),
-        "OpenAI token": re.compile(r"\bsk-[A-Za-z0-9_-]{16,}"),
-        "private key": re.compile(r"BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY"),
-        "chat attachment": re.compile(r"\\.codex\\attachments", re.I),
-    }
-    findings: list[str] = []
-    for path in text_publication_files():
-        if path.as_posix().endswith("scripts/validate_repository.py"):
-            continue
-        text = read_text(path)
-        for label, pattern in patterns.items():
-            if pattern.search(text):
-                findings.append(f"{path.relative_to(ROOT)}: {label}")
-    if findings:
-        return Result("private-material", "FAIL", "; ".join(findings))
-    return Result("private-material", "PASS", "no configured secret or private-path pattern found")
+def check_publication_privacy() -> Result:
+    command = [
+        sys.executable,
+        "-X",
+        "utf8",
+        str(ROOT / "scripts" / "audit_publication_privacy.py"),
+    ]
+    completed = subprocess.run(
+        command,
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    output = " ".join(completed.stdout.split())
+    if completed.returncode == 0:
+        return Result(
+            "publication-privacy-current",
+            "PASS",
+            "tracked and untracked publication candidates passed the redacting scan",
+        )
+    if completed.returncode == 2:
+        return Result("publication-privacy-current", "UNAVAILABLE", output or "scanner unavailable")
+    return Result("publication-privacy-current", "FAIL", output or "privacy finding")
 
 
 def check_publication_language() -> Result:
@@ -391,7 +392,7 @@ def main() -> int:
         check_skill_manifest,
         check_json_contracts,
         check_attempt_examples,
-        check_private_material,
+        check_publication_privacy,
         check_publication_language,
     ]
     results = [check() for check in checks]
