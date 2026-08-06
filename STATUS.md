@@ -2,6 +2,8 @@
 
 Version: `0.1-draft`
 
+Publication: approved for a public GitHub repository on 2026-08-06 under the MIT License and the public author identity `LeuZeuS`. This approval does not change the experimental maturity status.
+
 > Experimental proposal — tested only on ongoing projects; no completed full-lifecycle reference implementation yet.
 
 This page separates inherited practice, observed experience, proposed synthesis, and missing evidence. The separation prevents an existing technique or a current experiment from being presented as proof of GFD.

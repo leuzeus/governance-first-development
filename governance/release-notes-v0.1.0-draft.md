@@ -15,6 +15,7 @@ This first draft publishes a repository-centered method for keeping project auth
 - Author-owned `audit-project-governance` skill as an experimental reference implementation
 - Repository authority map, contribution rules, validation script, and initial audit evidence
 - Publication privacy gate covering current content, Git history, public identities, and binary metadata review
+- Public GitHub security baseline covering secrets, dependencies, private vulnerability reporting, minimal Actions permissions, and default-branch history protection
 
 ## Limits
 

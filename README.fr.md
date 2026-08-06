@@ -137,4 +137,4 @@ Utilisez [CONTRIBUTING.md](CONTRIBUTING.md) pour contribuer. Les signalements de
 
 ## Licence et citation
 
-La licence proposée est MIT. Elle autorise l’utilisation, la modification, la redistribution et l’usage commercial, à condition de conserver la notice de droit d’auteur et la licence. Voir [LICENSE](LICENSE) et [CITATION.cff](CITATION.cff).
+Ce dépôt est publié sous licence MIT. Elle autorise l’utilisation, la modification, la redistribution et l’usage commercial, à condition de conserver la notice de droit d’auteur et la licence. Voir [LICENSE](LICENSE) et [CITATION.cff](CITATION.cff).

@@ -1,8 +1,10 @@
 # Decision 0001: Publish GFD as an experimental MIT-licensed proposal
 
-Status: proposed; awaiting release-authority confirmation
+Status: accepted
 
 Date: 2026-08-01
+
+Accepted: 2026-08-06
 
 Authority: project owner, publicly identified as `LeuZeuS`
 
@@ -20,13 +22,15 @@ The project owner confirmed authorship of the skill. No civil name, affiliation,
 
 For licensing, the considered options were a simple permissive license, a reciprocal license, or no public license.
 
-## Proposed decision
+## Decision
 
 Use option 2. Label the repository `0.1-draft` and display the required experimental status in both README files, `STATUS.md`, the future GitHub description, and release notes.
 
 Use the MIT License for original repository content and the project-owner-authored audit skill. Attribute the public identity `LeuZeuS` until the owner chooses a different public author name. Do not invent an affiliation or legal identity.
 
-This proposal takes effect only when the project owner explicitly approves public release under MIT with the stated author identity. Until then, the repository remains a private local draft and this record has no accepted-decision authority.
+This decision took effect on 2026-08-06 when the project owner explicitly approved public publication under MIT with the stated author identity.
+
+The approval keeps the project at `0.1-draft`, without a civil name, affiliation, organization, or research identifier. It also records the owner's completion of the contextual privacy review required by addendum 0002.
 
 ## Consequences
 
@@ -40,6 +44,10 @@ The prior uses of the phrase must remain visible. The project cannot claim a tra
 - Source register records prior terminology and neighboring work.
 - Repository audit confirms that current claims match `STATUS.md`.
 - Public repository and release are created only after explicit owner approval of the pre-publication review.
+
+## Approval evidence
+
+On 2026-08-06, the project owner and release authority explicitly confirmed public publication of GFD `0.1-draft` under the MIT License, attributed publicly to `LeuZeuS`, with no civil name, affiliation, or research identifier. The same confirmation stated that the contextual review found no additional personal information or machine-structure detail requiring removal.
 
 ## Replacement
 

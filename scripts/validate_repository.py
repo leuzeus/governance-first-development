@@ -44,6 +44,7 @@ REQUIRED_FILES = (
     "governance/decisions/0001-initial-method-and-license.md",
     "governance/decisions/0002-attempt-outcome-integrity.md",
     "governance/decisions/0003-publication-privacy-scrub.md",
+    "governance/decisions/0004-public-repository-security-baseline.md",
     "governance/addenda/0001-attempt-outcome-integrity.md",
     "governance/addenda/0002-publication-privacy-scrub.md",
     "governance/publication-privacy-policy.json",
@@ -173,7 +174,7 @@ def check_citation() -> Result:
     missing = [f"{key}: {value}" for key, value in required.items() if value not in text]
     if missing:
         return Result("citation-metadata", "FAIL", "missing " + ", ".join(missing))
-    if "authors:" not in text or 'date-released: "2026-08-01"' not in text:
+    if "authors:" not in text or 'date-released: "2026-08-06"' not in text:
         return Result("citation-metadata", "FAIL", "authors or release date missing")
     return Result("citation-metadata", "PASS", "required CFF fields present")
 

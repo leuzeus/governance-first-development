@@ -137,4 +137,4 @@ Open a contribution using [CONTRIBUTING.md](CONTRIBUTING.md). Security reports f
 
 ## License and citation
 
-The proposed license is MIT. It permits use, modification, redistribution, and commercial use while requiring preservation of the copyright and license notice. See [LICENSE](LICENSE) and [CITATION.cff](CITATION.cff).
+This repository is licensed under the MIT License. It permits use, modification, redistribution, and commercial use while requiring preservation of the copyright and license notice. See [LICENSE](LICENSE) and [CITATION.cff](CITATION.cff).
