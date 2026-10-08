@@ -51,8 +51,11 @@ Where safe and affordable, compare periods, tasks, or matched projects with diff
 - explicit claim-to-evidence records versus unstructured completion summaries;
 - `FAST` and `STANDARD` routing versus one uniform process;
 - same-agent review versus a different agent and human review.
+- targeted session diagnosis with `audit-session-progress` versus an ordinary continuation, where the tasks and available evidence are sufficiently comparable.
 
 Comparisons must state assignment method, sample size, model and version, task type, environment, exclusions, and stopping rule. An exploratory result remains exploratory.
+
+The [session-audit protocol](skills/audit-session-progress/references/evaluation.md) starts with dated episodes read at a fixed cutoff, with later outcomes hidden. Include repeated corrections, failed reference transfers, external dependencies, incomplete histories, and productive long investigations. Record confirmed and rejected findings, questions that change a decision, false blocks, and audit cost. Historical replay tests diagnosis; a prospective baseline is needed before making a claim about time saved or resolution. Keep raw private traces in their authorized location and review any shareable summary before publication.
 
 ## Phase 3: complete a lifecycle and maintenance period
 

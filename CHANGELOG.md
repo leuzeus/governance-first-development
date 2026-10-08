@@ -4,7 +4,9 @@ This project follows draft versions rather than claiming stable semantic compati
 
 ## Unreleased
 
-No changes yet.
+- Add optional experimental `audit-session-progress` version `0.1.0-draft`, with transfer-analysis guidance, provenance, and a behavioral evaluation protocol.
+- Document the distinction between session diagnosis and governance reform in both README languages, status, and pilot roadmap; preserve the canonical method version and existing evidence semantics.
+- Validate and test deterministic distribution for both audit skills using the existing package and sync tools. Behavioral effectiveness remains unmeasured.
 
 ## 0.1-draft - 2026-08-06
 

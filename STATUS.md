@@ -37,6 +37,12 @@ The project owner reports recurring losses of context, contradictory documents, 
 
 These are experience reports without a controlled baseline. They identify questions; they do not establish causal effects.
 
+## Experimental session audit
+
+The optional [`audit-session-progress`](skills/audit-session-progress/README.md) skill is an additional experimental implementation. It diagnoses a bounded work episode and proposes the next discriminating observation. It does not replace `audit-project-governance`, change `METHOD.md`, mandate periodic audits, or install itself in an agent host.
+
+The initial skill, transfer-analysis guidance, and [evaluation protocol](skills/audit-session-progress/references/evaluation.md) are available. No independent behavioral evaluation or prospective pilot has established diagnostic accuracy, fewer repeated corrections, faster resolution, or acceptable net cost. Package and repository validation concern artifact consistency only. Raw private chat histories are not part of the distribution.
+
 ## Unvalidated hypotheses
 
 - An explicit authority map may reduce contradictions and unauthorized rule changes.
@@ -44,6 +50,7 @@ These are experience reports without a controlled baseline. They identify questi
 - Risk-based paths may preserve critical controls while reducing delay for local reversible work.
 - Short, routed context may help agents more than large static instruction files.
 - Recording friction may expose controls that should be changed or removed.
+- A targeted session audit may identify missing questions or a wrong correction layer without introducing false blocks or disproportionate audit cost.
 - Separating execution failures from product verdicts may reduce misdirected product changes.
 - Append-only outcome lineage may improve later reconstruction without creating excessive record maintenance.
 - Materiality decisions may avoid unrelated reruns without retaining stale proof.

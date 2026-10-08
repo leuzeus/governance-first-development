@@ -72,6 +72,12 @@ GFD asks a project to keep only the governance it can explain and maintain:
 
 The canonical description is [METHOD.md](METHOD.md). The shorter [MANIFESTO.md](MANIFESTO.md) states the initial principles.
 
+## Experimental session audit
+
+[`audit-session-progress`](skills/audit-session-progress/README.md) examines a work episode when corrections repeat or the method no longer produces useful observations. It compares hypotheses, actual execution, reference preconditions, owner decisions, and the evidence needed for the next decision. The audit proposes a bounded test or a change of approach; it does not reform project rules or establish a product verdict.
+
+The skill is an optional experimental implementation, complementary to `audit-project-governance`. Its diagnostic accuracy, false-block rate, and net cost remain unmeasured. The [evaluation protocol](skills/audit-session-progress/references/evaluation.md) includes productive long investigations and incomplete evidence as counterexamples. Adding this skill creates no mandatory session gate and leaves the canonical GFD method at `0.1-draft`.
+
 ## Risk-proportionate paths
 
 GFD proposes five profiles. They adjust ceremony, not invariants.
@@ -126,7 +132,8 @@ The method may be revised or abandoned if the planned studies do not show enough
 - [schemas/](schemas/): executable attempt and append-only outcome contracts
 - [examples/attempt-lineage/](examples/attempt-lineage/): generic cases A–H
 - [references/prior-art.md](references/prior-art.md): sources and comparison
-- [skills/audit-project-governance/](skills/audit-project-governance/): experimental reference audit implementation
+- [skills/audit-project-governance/](skills/audit-project-governance/): experimental reference governance audit implementation
+- [skills/audit-session-progress/](skills/audit-session-progress/README.md): experimental session diagnosis and evaluation protocol
 - [CONTRIBUTING.md](CONTRIBUTING.md): corrections, criticism, cases, measurements, and normative changes
 
 ## Contributing evidence and counterexamples
