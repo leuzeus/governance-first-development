@@ -72,6 +72,12 @@ GFD demande à un projet de conserver seulement la gouvernance qu’il peut expl
 
 La description canonique se trouve dans [METHOD.md](METHOD.md). [MANIFESTO.md](MANIFESTO.md) présente les principes initiaux en format court.
 
+## Audit expérimental de session
+
+[`audit-session-progress`](skills/audit-session-progress/README.md) examine un épisode de travail lorsque les corrections se répètent ou que la méthode ne produit plus d'observations utiles. Il compare les hypothèses, l'exécution réelle, les préconditions des références, les décisions du propriétaire et la preuve nécessaire à la prochaine décision. L'audit propose un test borné ou un changement d'approche ; il ne réforme pas les règles du projet et n'établit pas un verdict produit.
+
+Ce skill est une implémentation expérimentale facultative, complémentaire à `audit-project-governance`. La justesse de ses diagnostics, ses faux blocages et son coût net restent à mesurer. Le [protocole d'évaluation](skills/audit-session-progress/references/evaluation.md) comprend les investigations longues productives et les preuves incomplètes comme contre-exemples. Cet ajout ne crée aucun gate obligatoire de session et conserve la méthode canonique GFD à `0.1-draft`.
+
 ## Parcours proportionnés au risque
 
 GFD propose cinq profils. Ils adaptent les cérémonies sans affaiblir les invariants.
@@ -126,7 +132,8 @@ La méthode pourra être révisée ou abandonnée si les études prévues ne mon
 - [schemas/](schemas/) : contrats exécutables de tentative et de résultat immuable
 - [examples/attempt-lineage/](examples/attempt-lineage/) : cas génériques A à H
 - [references/prior-art.md](references/prior-art.md) : sources et comparaison
-- [skills/audit-project-governance/](skills/audit-project-governance/) : implémentation expérimentale d’audit
+- [skills/audit-project-governance/](skills/audit-project-governance/) : implémentation expérimentale d’audit de gouvernance
+- [skills/audit-session-progress/](skills/audit-session-progress/README.md) : diagnostic expérimental de session et protocole d’évaluation
 - [CONTRIBUTING.md](CONTRIBUTING.md) : corrections, critiques, cas, mesures et changements normatifs
 
 ## Contribuer des preuves et contre-exemples

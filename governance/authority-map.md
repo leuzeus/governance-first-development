@@ -17,7 +17,7 @@ Owner hats are cumulative and currently held by the GitHub identity `LeuZeuS`: `
 | [ROADMAP.md](../ROADMAP.md) and current task plans | Plan | Informative | Future validation and work | 9 | `project_owner` | 2026-08-01 | No authority to claim planned results |
 | [README.md](../README.md), [README.fr.md](../README.fr.md), [STATUS.md](../STATUS.md), [GLOSSARY.md](../GLOSSARY.md) | Explanation and status | Informative except exact public status commitments | Orientation and current limits | 10 | `method_editor` | 2026-08-01 | Summarize or contextualize canonical sources |
 | `references/`, `examples/`, `templates/` | Research, example, template | Informative | Prior art and adoption aids | 11 | `evidence_maintainer` | Varies | Cannot create a normative requirement |
-| `skills/audit-project-governance/` | Experimental implementation | Informative implementation | Governance audit workflow | 12 | Skill author and `method_editor` | Vendored snapshot date | Implements audit checks but does not redefine GFD or its schemas |
+| `skills/audit-project-governance/`, `skills/audit-session-progress/` | Experimental implementation | Informative implementation | Governance audit and bounded session diagnosis | 12 | Skill author and `method_editor` | Per-skill provenance date | Implement optional audit workflows; do not redefine GFD, its schemas, or authority precedence |
 | Generated reports, CI logs, GitHub views | Projection or evidence | Non-normative unless a claim cites it | Specific run or view | 13 | Tool and `evidence_maintainer` | Run date | Valid only for the recorded commit and environment |
 
 ## Conflict rule

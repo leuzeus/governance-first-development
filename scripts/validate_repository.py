@@ -69,9 +69,21 @@ REQUIRED_FILES = (
     "tests/test_attempt_governance.py",
     "tests/test_skill_distribution.py",
     "tests/test_publication_privacy.py",
+    "skills/audit-session-progress/LICENSE",
+    "skills/audit-session-progress/SKILL.md",
+    "skills/audit-session-progress/VERSION",
+    "skills/audit-session-progress/PACKAGE_MANIFEST.json",
+    "skills/audit-session-progress/PROVENANCE.md",
+    "skills/audit-session-progress/README.md",
+    "skills/audit-session-progress/agents/openai.yaml",
+    "skills/audit-session-progress/references/diagnostic.md",
+    "skills/audit-session-progress/references/evaluation.md",
 )
 
-SKILL_DIR = ROOT / "skills" / "audit-project-governance"
+SKILL_DIRS = (
+    ROOT / "skills" / "audit-project-governance",
+    ROOT / "skills" / "audit-session-progress",
+)
 
 EN_STATUS = (
     "Experimental proposal — tested only on ongoing projects; "
@@ -179,8 +191,8 @@ def check_citation() -> Result:
     return Result("citation-metadata", "PASS", "required CFF fields present")
 
 
-def check_skill_manifest() -> Result:
-    manifest_path = SKILL_DIR / "PACKAGE_MANIFEST.json"
+def check_skill_manifest_for(skill_dir: Path) -> Result:
+    manifest_path = skill_dir / "PACKAGE_MANIFEST.json"
     errors: list[str] = []
     try:
         manifest = json.loads(read_text(manifest_path))
@@ -190,9 +202,9 @@ def check_skill_manifest() -> Result:
     version = manifest.get("version")
     if manifest.get("format_version") != 1:
         errors.append("format_version must be 1")
-    if manifest.get("name") != "audit-project-governance":
+    if manifest.get("name") != skill_dir.name:
         errors.append("unexpected skill name")
-    if manifest.get("archive_root") != "audit-project-governance":
+    if manifest.get("archive_root") != skill_dir.name:
         errors.append("unexpected archive root")
     if not isinstance(files, list) or not files or files != sorted(set(files)):
         errors.append("files must be a non-empty sorted unique list")
@@ -201,22 +213,33 @@ def check_skill_manifest() -> Result:
         relative_path = Path(relative)
         if relative_path.is_absolute() or ".." in relative_path.parts:
             errors.append(f"unsafe path {relative}")
-        elif not (SKILL_DIR / relative_path).is_file():
+        elif not (skill_dir / relative_path).is_file():
             errors.append(f"missing package file {relative}")
     required_package_files = {
         "PACKAGE_MANIFEST.json",
         "PROVENANCE.md",
         "SKILL.md",
         "VERSION",
-        "references/attempt-outcome-integrity.md",
-        "scripts/audit_attempt_outcomes.py",
+        "README.md",
+        "agents/openai.yaml",
     }
+    if skill_dir.name == "audit-project-governance":
+        required_package_files.update({
+            "references/attempt-outcome-integrity.md",
+            "scripts/audit_attempt_outcomes.py",
+        })
+    elif skill_dir.name == "audit-session-progress":
+        required_package_files.update({
+            "LICENSE",
+            "references/diagnostic.md",
+            "references/evaluation.md",
+        })
     if not required_package_files.issubset(set(files)):
         errors.append("required runtime or provenance file absent from package")
     try:
-        version_text = read_text(SKILL_DIR / "VERSION").strip()
-        skill_text = read_text(SKILL_DIR / "SKILL.md")
-        provenance_text = read_text(SKILL_DIR / "PROVENANCE.md")
+        version_text = read_text(skill_dir / "VERSION").strip()
+        skill_text = read_text(skill_dir / "SKILL.md")
+        provenance_text = read_text(skill_dir / "PROVENANCE.md")
     except OSError as error:
         errors.append(str(error))
     else:
@@ -231,6 +254,14 @@ def check_skill_manifest() -> Result:
     return Result("skill-manifest", "PASS", f"{len(files)} declared files for version {version}")
 
 
+def check_skill_manifest() -> Result:
+    results = [(directory.name, check_skill_manifest_for(directory)) for directory in SKILL_DIRS]
+    failures = [f"{name}: {result.detail}" for name, result in results if result.status != "PASS"]
+    if failures:
+        return Result("skill-manifest", "FAIL", "; ".join(failures))
+    return Result("skill-manifest", "PASS", "; ".join(f"{name}: {result.detail}" for name, result in results))
+
+
 def check_json_contracts() -> Result:
     roots = [
         ROOT / "schemas",
@@ -238,10 +269,8 @@ def check_json_contracts() -> Result:
         ROOT / "examples" / "attempt-lineage",
         ROOT / "tests" / "fixtures" / "attempt-governance",
     ]
-    paths = [
-        SKILL_DIR / "PACKAGE_MANIFEST.json",
-        ROOT / "governance" / "publication-privacy-policy.json",
-    ]
+    paths = [directory / "PACKAGE_MANIFEST.json" for directory in SKILL_DIRS]
+    paths.append(ROOT / "governance" / "publication-privacy-policy.json")
     for root in roots:
         if root.is_dir():
             paths.extend(sorted(root.rglob("*.json")))

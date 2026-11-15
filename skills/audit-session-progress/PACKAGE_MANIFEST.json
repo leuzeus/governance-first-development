@@ -1,0 +1,17 @@
+{
+  "format_version": 1,
+  "name": "audit-session-progress",
+  "version": "0.1.0-draft",
+  "archive_root": "audit-session-progress",
+  "files": [
+    "LICENSE",
+    "PACKAGE_MANIFEST.json",
+    "PROVENANCE.md",
+    "README.md",
+    "SKILL.md",
+    "VERSION",
+    "agents/openai.yaml",
+    "references/diagnostic.md",
+    "references/evaluation.md"
+  ]
+}

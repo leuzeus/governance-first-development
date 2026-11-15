@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit de progression de session"
+  short_description: "Diagnostiquer les boucles et choisir le prochain test"
+  default_prompt: "Utilise $audit-session-progress pour examiner ce blocage et proposer une prochaine action testable."
